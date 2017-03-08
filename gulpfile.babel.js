@@ -438,22 +438,13 @@ gulp.task('webdriver_update', webdriver_update);
 gulp.task('build', cb => {
     runSequence(
         [
-            'clean:dist',
-            'clean:tmp'
+          'clean:dist',
+          'clean:tmp'
         ],
-        'inject',
         'transpile:server',
         [
-            'build:images'
+          'copy:server',
         ],
-        [
-            'copy:extras',
-            'copy:assets',
-            'copy:fonts:dist',
-            'copy:server',
-            'webpack:dist'
-        ],
-        'revReplaceWebpack',
         cb);
 });
 
