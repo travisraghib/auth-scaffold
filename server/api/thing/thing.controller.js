@@ -10,8 +10,8 @@
 
 'use strict';
 
-import jsonpatch from 'fast-json-patch';
-import Thing from './thing.model';
+const jsonpatch = require('fast-json-patch';
+const Thing = require('./thing.model';
 
 function respondWithResult(res, statusCode) {
   statusCode = statusCode || 200;

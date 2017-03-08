@@ -1,9 +1,9 @@
 'use strict';
 
-import express from 'express';
-import mongoose from 'mongoose';
-import config from './config/environment';
-import http from 'http';
+const express = require('express');
+const mongoose = require('mongoose');
+const config = require('./config/environment');
+const http = require('http');
 
 // Connect to MongoDB
 mongoose.Promise = require('bluebird');
@@ -16,8 +16,8 @@ mongoose.connection.on('error', err => {
 // Setup server
 var app = express();
 var server = http.createServer(app);
-require('./config/express').default(app);
-require('./routes').default(app);
+require('./config/express')(app);
+require('./routes')(app);
 
 // Start server
 function startServer() {

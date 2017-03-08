@@ -1,9 +1,11 @@
 'use strict';
-/*eslint no-invalid-this:0*/
-import crypto from 'crypto';
+
+const crypto = require('crypto');
+const mongoose = require('mongoose');
+const {registerEvents} = require('./user.events');
+
+const { Schema } = mongoose
 mongoose.Promise = require('bluebird');
-import mongoose, {Schema} from 'mongoose';
-import {registerEvents} from './user.events';
 
 var UserSchema = new Schema({
   name: String,
@@ -224,4 +226,4 @@ UserSchema.methods = {
 };
 
 registerEvents(UserSchema);
-export default mongoose.model('users', UserSchema);
+module.exports = mongoose.model('users', UserSchema);

@@ -2,9 +2,9 @@
 
 /* globals describe, expect, it, before, after, beforeEach, afterEach */
 
-import app from '../..';
-import User from './user.model';
-import request from 'supertest';
+const app = require('../..');
+const User = require('./user.model');
+const request = require('supertest');
 
 describe('User API:', function() {
   var user;

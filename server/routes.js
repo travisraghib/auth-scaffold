@@ -4,15 +4,14 @@
 
 'use strict';
 
-import errors from './components/errors';
-import path from 'path';
+const errors = require('./components/errors');
+const path = require('path');
 
-export default function(app) {
+module.exports = function(app) {
   // Insert routes below
-  app.use('/api/things', require('./api/thing'));
   app.use('/api/user', require('./api/user'));
 
-  app.use('/api/auth', require('./api/auth').default);
+  app.use('/api/auth', require('./api/auth'));
 
   // All undefined asset or api routes should return a 404
   app.route('/:url(api|auth|components|app|bower_components|assets)/*')

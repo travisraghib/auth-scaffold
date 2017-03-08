@@ -1,9 +1,9 @@
 'use strict';
-import config from '../../config/environment';
-import jwt from 'jsonwebtoken';
-import expressJwt from 'express-jwt';
-import compose from 'composable-middleware';
-import User from '../user/user.model';
+const config = require('../../config/environment');
+const jwt = require('jsonwebtoken');
+const expressJwt = require('express-jwt');
+const compose = require('composable-middleware');
+const User = require('../user/user.model');
 
 var validateJwt = expressJwt({
   secret: config.secrets.session
@@ -13,7 +13,7 @@ var validateJwt = expressJwt({
  * Attaches the user object to the request if authenticated
  * Otherwise returns 403
  */
-export function isAuthenticated() {
+exports.isAuthenticated = () => {
   return compose()
     // Validate jwt
     .use(function(req, res, next) {
@@ -44,13 +44,13 @@ export function isAuthenticated() {
 /**
  * Checks if the user role meets the minimum requirements of the route
  */
-export function hasRole(roleRequired) {
+exports.hasRole = (roleRequired) => {
   if(!roleRequired) {
     throw new Error('Required role needs to be set');
   }
 
   return compose()
-    .use(isAuthenticated())
+    .use(exports.isAuthenticated())
     .use(function meetsRequirements(req, res, next) {
       if(config.userRoles.indexOf(req.user.role) >= config.userRoles.indexOf(roleRequired)) {
         return next();
@@ -63,7 +63,7 @@ export function hasRole(roleRequired) {
 /**
  * Returns a jwt token signed by the app secret
  */
-export function signToken(id, role) {
+exports.signToken = (id, role) => {
   return jwt.sign({ _id: id, role }, config.secrets.session, {
     expiresIn: 60 * 60 * 5
   });
@@ -72,7 +72,7 @@ export function signToken(id, role) {
 /**
  * Set token cookie directly for oAuth strategies
  */
-export function setTokenCookie(req, res) {
+exports.setTokenCookie = (req, res) => {
   if(!req.user) {
     return res.status(404).send('It looks like you aren\'t logged in, please try again.');
   }
