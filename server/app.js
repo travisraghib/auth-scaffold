@@ -9,7 +9,7 @@ const http = require('http');
 mongoose.Promise = require('bluebird');
 mongoose.connect(config.mongo.uri, config.mongo.options)
 mongoose.connection.on('connected', function() {
-    logger.info('MongoDB event connected');
+    console.info('MongoDB connected');
 });
 mongoose.connection.on('error', err => {
   console.error(`MongoDB connection error: ${err}`);

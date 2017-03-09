@@ -7,7 +7,6 @@
 const express = require('express');
 const favicon = require('serve-favicon');
 const morgan = require('morgan');
-const shrinkRay = require('shrink-ray');
 const bodyParser = require('body-parser');
 const methodOverride = require('method-override');
 const cookieParser = require('cookie-parser');
@@ -26,7 +25,6 @@ module.exports = function(app) {
   var env = app.get('env');
 
   app.use(morgan('dev'));
-  app.use(shrinkRay());
   app.use(bodyParser.urlencoded({ extended: false }));
   app.use(bodyParser.json());
   app.use(methodOverride());
